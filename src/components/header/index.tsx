@@ -65,6 +65,16 @@ const MenuWrapper = styled.div<{ $isOpen: boolean }>`
   opacity: ${props => (props.$isOpen ? "1" : "0")};
   visibility: ${props => (props.$isOpen ? "visible" : "hidden")};
   transition: 0.6s, opacity 0.6s, visibility 0.6s;
+
+  
+  @media (max-width: 768px) {
+    width: 40%;
+  }
+
+  
+  @media (max-width: 425px) {
+    width: 70%;
+  }
 `;
 
 const LinkNavigation = styled(Link)`

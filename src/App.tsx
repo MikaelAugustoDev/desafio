@@ -8,6 +8,15 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
   }
+
+  ::-webkit-scrollbar {
+    width: 5px;
+    background-color: #FFF;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #b1b1b1;
+  }
 `;
 
 const App = () => {

@@ -1,6 +1,7 @@
 import { styled } from "styled-components";
 import { Input } from "../../components/input";
 import { ChangeEvent, useState } from "react";
+import { Header } from "../../components/header";
 
 const Main = styled.main`
     width: 100%;
@@ -121,45 +122,48 @@ const CadastroDeClientes = () => {
 
   const handleCadastrar = () => {
     
-    localStorage.setItem("codigo", codigo);
-    localStorage.setItem("nome", nome);
-    localStorage.setItem("cpfCnpj", cpfCnpj);
-    localStorage.setItem("email", email);
+    localStorage.setItem("clienteCodigo", codigo);
+    localStorage.setItem("clienteNome", nome);
+    localStorage.setItem("clienteCpfCnpj", cpfCnpj);
+    localStorage.setItem("clienteEmail", email);
   };
   
   return (
-    <Main>
-      <Formulario>
-        <TitleFormulario>Cadastrar Cliente</TitleFormulario>
-        <Form>
-          <DivInputs>
-            <Input
-              name="Código"
-              type="text"
-              onChange={handleCodigoChange}
-            />
-            <Input
-              name="Nome"
-              type="text"
-              onChange={handleNomeChange}
-            />
-          </DivInputs>
-          <DivInputs>
-            <Input
-              name="CPF/CNPJ"
-              type="text"
-              onChange={handleCpfCnpjChange}
-            />
-            <Input
-              name="Email"
-              type="text"
-              onChange={handleEmailChange}
-            />
-          </DivInputs>
-          <ButtonCadastrar onClick={handleCadastrar}>Cadastrar</ButtonCadastrar>
-        </Form>
-      </Formulario>
-    </Main>
+    <>
+      <Header/>
+      <Main>
+        <Formulario>
+          <TitleFormulario>Cadastrar Cliente</TitleFormulario>
+          <Form>
+            <DivInputs>
+              <Input
+                name="Código"
+                type="text"
+                onChange={handleCodigoChange}
+              />
+              <Input
+                name="Nome"
+                type="text"
+                onChange={handleNomeChange}
+              />
+            </DivInputs>
+            <DivInputs>
+              <Input
+                name="CPF/CNPJ"
+                type="text"
+                onChange={handleCpfCnpjChange}
+              />
+              <Input
+                name="Email"
+                type="text"
+                onChange={handleEmailChange}
+              />
+            </DivInputs>
+            <ButtonCadastrar onClick={handleCadastrar}>Cadastrar</ButtonCadastrar>
+          </Form>
+        </Formulario>
+      </Main>
+    </>
   );
 };
 
