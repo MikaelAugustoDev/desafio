@@ -5,7 +5,7 @@ interface InputProps {
     name: string,
     type: string,
     value?: string,
-    onChange?: any
+    onChange?: any,
 }
 
 const InputContainer = styled.div`

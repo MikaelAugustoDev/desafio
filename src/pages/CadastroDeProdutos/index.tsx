@@ -13,7 +13,7 @@ const Main = styled.main`
 
 const Formulario = styled.div`
   width: 700px;
-  height: 500px;
+  height: 550px;
   border: 2px solid #333;
   border-radius: 10px;
   display: flex;
@@ -23,17 +23,15 @@ const Formulario = styled.div`
 
   @media (max-width: 425px) {
     width: 400px;
-    height: 800px;
+    height: 900px;
     margin: 40px 0px;
   }
   
   @media (max-width: 375px) {
     width: 320px;
-    height: 800px;
   }
   @media (max-width: 320px) {
     width: 300px;
-    height: 800px;
     padding: 60px 20px;
   }
 `;
@@ -105,7 +103,7 @@ const ButtonCadastrar = styled.button`
   font-weight: 700;
   color: #fff;
   border-radius: 5px;
-  margin-top: 20px;
+  margin-top: 50px;
   transition: all ease 0.1s;
   box-shadow: 0px 5px 0px 0px #a29bfe;
 
@@ -123,15 +121,36 @@ const ButtonCadastrar = styled.button`
   }
 `;
 
+const CodigoProduct = styled.div`
+  display: flex;
+  gap: 15px;
+  margin-left: 30px;
+
+  @media (max-width: 425px) {
+    margin: 20px 30px;
+  }
+
+  @media (max-width: 375px) {
+    margin: 20px 0px;
+  }
+`;
+
+const LabelProduct = styled.label``;
+
+const InputCheckbox = styled.input`
+
+`;
+
 const CadastroDeProdutos = () => {
 
-  const [codigo, setCodigo] = useState("");
+  const [name, setName] = useState("");
   const [preco, setPreco] = useState("");
   const [quantidade, setQuantidade] = useState("");
   const [descricao, setDescricao] = useState("");
+  const [estaAtivo, setEstaAtivo] = useState(false);
 
-  const handleCodigoChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setCodigo(e.target.value);
+  const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
   };
 
   const handlePrecoChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -146,12 +165,18 @@ const CadastroDeProdutos = () => {
     setDescricao(e.target.value);
   };
 
+  const handleEstaAtivoChange = () => {
+    setEstaAtivo(!estaAtivo);
+  };
+
+
   const handleCadastrar = () => {
     const dadosDoProduto = {
-      name: codigo,
+      name: name,
       description: descricao,
       price: preco,
       stock: quantidade,
+      estaAtivo: estaAtivo
     };
   
     localStorage.setItem("produtoCadastrado", JSON.stringify(dadosDoProduto));
@@ -168,9 +193,9 @@ const CadastroDeProdutos = () => {
             <DivInfomations>
               <DivInputs>
                 <Input
-                  name="Código"
+                  name="Nome do Produto"
                   type="text"
-                  onChange={handleCodigoChange}
+                  onChange={handleNameChange}
                 />
                 <Input
                   name="Preço"
@@ -181,8 +206,16 @@ const CadastroDeProdutos = () => {
                   name="Quantidade em estoque"
                   type="text"
                   onChange={handleQuantidadeChange}
-                  
                 />
+                <CodigoProduct>
+                  <InputCheckbox
+                    type="checkbox"
+                    id="check"
+                    checked={estaAtivo}
+                    onChange={handleEstaAtivoChange}
+                  />
+                  <LabelProduct htmlFor="check">O código está ativo?</LabelProduct>
+                </CodigoProduct>
               </DivInputs>
               <DescricaoDoProduto 
                 placeholder="Descrição do Produto"

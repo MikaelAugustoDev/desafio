@@ -4,6 +4,7 @@ import { Home } from "./Home";
 import { CadastroDeClientes } from "./CadastroDeClientes";
 import { CadastroDeProdutos } from "./CadastroDeProdutos";
 import { AssistenteDePedido } from "./AssistenteDePedido";
+import { FinalizandoCompra } from "./FinalizandoCompra";
 
 const AppRouter = () => {
   return (
@@ -14,7 +15,7 @@ const AppRouter = () => {
         <Route path="/cadastrodeclientes" element={ <CadastroDeClientes /> }/>
         <Route path="/cadastrodeprodutos" element={ <CadastroDeProdutos /> }/>
         <Route path="/assistentedepedido" element={ <AssistenteDePedido /> }/>
-        <Route path="/products/:productName" element={""} />
+        <Route path="/assistentedepedido/:productName" element={ <FinalizandoCompra /> } />
       </Routes>
     </BrowserRouter>
   );

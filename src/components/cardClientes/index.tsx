@@ -6,7 +6,7 @@ interface PropsCardClientes {
     onClick: React.MouseEventHandler<HTMLDivElement>,
     cpfCnpj: number,
     email: string,
-    codigo: string
+    codigo: string,
 }
 
 const Card = styled.div`
