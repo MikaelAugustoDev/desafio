@@ -5,7 +5,8 @@ interface PropsCardProducts {
     onClick: React.MouseEventHandler<HTMLDivElement>,
     description: string,
     price: number,
-    stock: number
+    stock: number,
+    name?: string
 }
 
 const Card = styled.div`

@@ -4,6 +4,7 @@ import { CardClientes } from "../../components/cardClientes";
 import { useState } from "react";
 import { CardProducts } from "../../components/cardProducts";
 import Arrow from "../../assets/arrow.svg";
+import { Input } from "../../components/input";
 
 interface Client {
     name: string;
@@ -11,7 +12,37 @@ interface Client {
 
 interface Product {
     name: string;
+    description: string;
+    price: number;
+    stock: number;
 }
+
+const products: Product[] = [
+  {
+    name: "notebook",
+    description: "notebook dolor sit amet consectetur adipisicing elit. Molestias itaque voluptatem optio libero esse, totam ...",
+    price: 137,
+    stock: 26782,
+  },
+  {
+    name: "mesa",
+    description: "Mesa de madeira dolor sit amet consectetur adipisicing elit. Molestias itaque voluptatem optio libero esse, totam ...",
+    price: 561,
+    stock: 678,
+  },
+  {
+    name: "aparador de grama",
+    description: "aparador de grama consectetur adipisicing elit. Molestias itaque voluptatem optio libero esse, totam ...",
+    price: 1967,
+    stock: 19,
+  },
+  {
+    name: "construtora",
+    description: "contrato de serviço para construção itaque voluptatem optio libero esse, totam ...",
+    price: 19,
+    stock: 592637,
+  }
+];
 
 const Main = styled.main`
     width: 100%;
@@ -130,6 +161,16 @@ const AssistenteDePedido = () => {
     setSelectedProduct(productName);
   };
 
+  const [searchInput, setSearchInput] = useState<string>("");
+
+  const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchInput(event.target.value);
+  };
+
+  const filteredProducts = products.filter((product: Product) =>
+    product.name.toLowerCase().includes(searchInput.toLowerCase())
+  );
+
   return (
     <>
       <Header />
@@ -152,31 +193,23 @@ const AssistenteDePedido = () => {
               onClick={handleGoBack}
             />
             <TitleProduct>Escolha um produto de {selectedClient.name}</TitleProduct>
+            <Input
+              type="text"
+              name="Buscar produtos..."
+              value={searchInput}
+              onChange={handleSearchInputChange}
+            />
             <Products>
-              <CardProducts
-                onClick={() => handleProductSelect({ name: "produto 1" })}
-                description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut animi nesciunt, vel quisquam reiciendis, dicta ab molestias..."
-                price={137}
-                stock={26782}
-              />
-              <CardProducts
-                onClick={() => handleProductSelect({ name: "produto 2" })}
-                description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut animi nesciunt, vel quisquam reiciendis, dicta ab molestias..."
-                price={561}
-                stock={678}
-              />
-              <CardProducts
-                onClick={() => handleProductSelect({ name: "produto 3" })}
-                description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut animi nesciunt, vel quisquam reiciendis, dicta ab molestias..."
-                price={16}
-                stock={1576289}
-              />
-              <CardProducts
-                onClick={() => handleProductSelect({ name: "produto 4" })}
-                description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut animi nesciunt, vel quisquam reiciendis, dicta ab molestias..."
-                price={937}
-                stock={17}
-              />              
+              {filteredProducts.map((product: Product) => (
+                <CardProducts
+                  key={product.name}
+                  onClick={() => handleProductSelect(product)}
+                  name={product.name}
+                  description={product.description}
+                  price={product.price}
+                  stock={product.stock}
+                />
+              ))}
             </Products>
           </TelaDeEscolhaDeProdutos>
         ) : (
