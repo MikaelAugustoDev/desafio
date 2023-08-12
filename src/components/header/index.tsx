@@ -12,8 +12,11 @@ const Headers = styled.header`
   padding: 0px 20px;
 `;
 
-const Logo = styled.h1`
-
+const Logo = styled(Link)`
+  text-decoration: none;
+  font-size: 30px;
+  color: #000;
+  font-weight: 500;
 `;
 
 const MenuHamburguer = styled.label<{ $isOpen: boolean }>`
@@ -114,7 +117,7 @@ const Header = () => {
 
   return (
     <Headers>
-      <Logo>Logo</Logo>
+      <Logo to="/home">Logo</Logo>
       <MenuHamburguer onClick={handleMenuClick} $isOpen={isOpen}>
         <div className="input"/>
         <Svg

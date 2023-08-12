@@ -151,6 +151,8 @@ const CadastroDeProdutos = () => {
     localStorage.setItem("produtoPreco", preco);
     localStorage.setItem("produtoQuantidade", quantidade);
     localStorage.setItem("produtoDescricao", descricao);
+
+    alert("Produto Cadastrado com sucesso!");
   };
 
   return (
