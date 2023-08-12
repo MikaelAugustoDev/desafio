@@ -147,11 +147,14 @@ const CadastroDeProdutos = () => {
   };
 
   const handleCadastrar = () => {
-    localStorage.setItem("produtoCodigo", codigo);
-    localStorage.setItem("produtoPreco", preco);
-    localStorage.setItem("produtoQuantidade", quantidade);
-    localStorage.setItem("produtoDescricao", descricao);
-
+    const dadosDoProduto = {
+      name: codigo,
+      description: descricao,
+      price: preco,
+      stock: quantidade,
+    };
+  
+    localStorage.setItem("produtoCadastrado", JSON.stringify(dadosDoProduto));
     alert("Produto Cadastrado com sucesso!");
   };
 
@@ -184,6 +187,7 @@ const CadastroDeProdutos = () => {
               <DescricaoDoProduto 
                 placeholder="Descrição do Produto"
                 onChange={handleDescricaoChange}
+                maxLength={130}
               />
             </DivInfomations>
             <ButtonCadastrar onClick={handleCadastrar}>Cadastrar Produto</ButtonCadastrar>

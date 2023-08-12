@@ -2,7 +2,7 @@ import { styled } from "styled-components";
 import ImageProductTest from "../../assets/image.svg";
 
 interface PropsCardProducts {
-    onClick: React.MouseEventHandler<HTMLDivElement>,
+    onClick?: React.MouseEventHandler<HTMLDivElement>,
     description: string,
     price: number,
     stock: number,

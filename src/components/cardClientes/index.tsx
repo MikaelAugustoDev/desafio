@@ -3,7 +3,10 @@ import ImageClientTest from "../../assets/user.svg";
 
 interface PropsCardClientes {
     name: string,
-    onClick: React.MouseEventHandler<HTMLDivElement>
+    onClick: React.MouseEventHandler<HTMLDivElement>,
+    cpfCnpj: number,
+    email: string,
+    codigo: string
 }
 
 const Card = styled.div`

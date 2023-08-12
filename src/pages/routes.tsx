@@ -14,6 +14,7 @@ const AppRouter = () => {
         <Route path="/cadastrodeclientes" element={ <CadastroDeClientes /> }/>
         <Route path="/cadastrodeprodutos" element={ <CadastroDeProdutos /> }/>
         <Route path="/assistentedepedido" element={ <AssistenteDePedido /> }/>
+        <Route path="/products/:productName" element={""} />
       </Routes>
     </BrowserRouter>
   );

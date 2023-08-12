@@ -121,13 +121,15 @@ const CadastroDeClientes = () => {
   };
 
   const handleCadastrar = () => {
-    
-    localStorage.setItem("clienteCodigo", codigo);
-    localStorage.setItem("clienteNome", nome);
-    localStorage.setItem("clienteCpfCnpj", cpfCnpj);
-    localStorage.setItem("clienteEmail", email);
-
-    alert("Cliente cadastrado com sucesso!");
+    const dadosDoCliente = {
+      codigo: codigo,
+      name: nome,
+      cpfCnpj: cpfCnpj,
+      email: email
+    };
+  
+    localStorage.setItem("clienteCadastrado", JSON.stringify(dadosDoCliente));
+    alert("Cliente Cadastrado com sucesso!");
   };
   
   return (

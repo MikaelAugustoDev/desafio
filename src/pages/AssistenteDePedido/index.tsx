@@ -1,13 +1,19 @@
 import { styled } from "styled-components";
 import { Header } from "../../components/header";
 import { CardClientes } from "../../components/cardClientes";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CardProducts } from "../../components/cardProducts";
 import Arrow from "../../assets/arrow.svg";
 import { Input } from "../../components/input";
+import { useNavigate } from "react-router-dom";
+
+// Tipagem de dados:
 
 interface Client {
-    name: string;
+    codigo: string,
+    name: string,
+    cpfCnpj: number,
+    email: string
 }
 
 interface Product {
@@ -16,6 +22,8 @@ interface Product {
     price: number;
     stock: number;
 }
+
+// Produtos já cadastrados:
 
 const products: Product[] = [
   {
@@ -35,14 +43,10 @@ const products: Product[] = [
     description: "aparador de grama consectetur adipisicing elit. Molestias itaque voluptatem optio libero esse, totam ...",
     price: 1967,
     stock: 19,
-  },
-  {
-    name: "construtora",
-    description: "contrato de serviço para construção itaque voluptatem optio libero esse, totam ...",
-    price: 19,
-    stock: 592637,
   }
 ];
+
+// Estilizações:
 
 const Main = styled.main`
     width: 100%;
@@ -145,6 +149,7 @@ const ArrowGoBack = styled.img`
 
 const AssistenteDePedido = () => {
 
+  // Voltar para a etapa anterior
   const handleGoBack = () => {
     setSelectedClient(null);
     setSelectedProduct(null);
@@ -153,12 +158,8 @@ const AssistenteDePedido = () => {
   const [selectedClient, setSelectedClient] = useState<Client | null>(null);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
-  const handleClientSelect = (clientName: Client) => {
-    setSelectedClient(clientName);
-  };
-
-  const handleProductSelect = (productName: Product) => {
-    setSelectedProduct(productName);
+  const handleClientSelect = (client: Client) => {
+    setSelectedClient(client);
   };
 
   const [searchInput, setSearchInput] = useState<string>("");
@@ -171,6 +172,39 @@ const AssistenteDePedido = () => {
     product.name.toLowerCase().includes(searchInput.toLowerCase())
   );
 
+  const navigate = useNavigate();
+
+  const handleProductSelectNavigate = (productName: Product) => {
+    setSelectedProduct(productName);
+    navigate(`/assistentedepedido/${productName.name}`);
+  };
+  
+  const [productCadastrado, setProductCadastrado] = useState<Product | null>(null);
+
+  const [clientCadastrado, setClientCadastrado] = useState<Client | null>(null);
+  
+  useEffect(() => {
+    const produtoArmazenado = localStorage.getItem("selectedProduct");
+    if (produtoArmazenado) {
+      setSelectedClient(JSON.parse(produtoArmazenado));
+    }
+
+    const clienteArmazenado = localStorage.getItem("selectedClient");
+    if (clienteArmazenado) {
+      setSelectedProduct(JSON.parse(clienteArmazenado));
+    }
+  
+    const produtoCadastradoArmazenado = localStorage.getItem("produtoCadastrado");
+    if (produtoCadastradoArmazenado) {
+      setProductCadastrado(JSON.parse(produtoCadastradoArmazenado));
+    }
+
+    const clienteCadastradoArmazenado = localStorage.getItem("clienteCadastrado");
+    if (clienteCadastradoArmazenado) {
+      setClientCadastrado(JSON.parse(clienteCadastradoArmazenado));
+    }
+  }, []);
+
   return (
     <>
       <Header />
@@ -179,11 +213,28 @@ const AssistenteDePedido = () => {
           <TelaDeEscolhaDoCliente>
             <TitleClient>Escolha um cliente</TitleClient>
             <Clients>
-              <CardClientes name="Mikael" onClick={() => handleClientSelect({ name: "Mikael" })}/>
-              <CardClientes name="João" onClick={() => handleClientSelect({ name: "Jõao" })}/>
-              <CardClientes name="Humberto" onClick={() => handleClientSelect({ name: "Humberto" })}/>
-              <CardClientes name="Lucas" onClick={() => handleClientSelect({ name: "Lucas" })}/>
-              <CardClientes name="Alice" onClick={() => handleClientSelect({ name: "Alice" })}/>
+              {clientCadastrado && (
+                <CardClientes
+                  key={clientCadastrado.codigo}
+                  name={clientCadastrado.name}
+                  cpfCnpj={clientCadastrado.cpfCnpj}
+                  email={clientCadastrado.email}
+                  codigo={clientCadastrado.codigo}
+                  onClick={() => handleClientSelect(clientCadastrado)}
+                />
+              )}
+              <CardClientes 
+                name="Mikael"
+                onClick={() => handleClientSelect({
+                  name: "Mikael",
+                  codigo: "",
+                  cpfCnpj: 0,
+                  email: ""
+                })} 
+                cpfCnpj={0} 
+                email={""} 
+                codigo={""}              
+              />
             </Clients>
           </TelaDeEscolhaDoCliente>
         ) : selectedProduct === null ? (
@@ -200,10 +251,20 @@ const AssistenteDePedido = () => {
               onChange={handleSearchInputChange}
             />
             <Products>
+              {productCadastrado && (
+                <CardProducts
+                  key={productCadastrado.name}
+                  name={productCadastrado.name}
+                  description={productCadastrado.description}
+                  price={productCadastrado.price}
+                  stock={productCadastrado.stock}
+                  onClick={() => handleProductSelectNavigate(productCadastrado)}
+                />
+              )}
               {filteredProducts.map((product: Product) => (
                 <CardProducts
                   key={product.name}
-                  onClick={() => handleProductSelect(product)}
+                  onClick={() => handleProductSelectNavigate(product)}
                   name={product.name}
                   description={product.description}
                   price={product.price}
@@ -211,10 +272,10 @@ const AssistenteDePedido = () => {
                 />
               ))}
             </Products>
+
           </TelaDeEscolhaDeProdutos>
         ) : (
           <>
-            {/* Conteúdo da tela de pedido */}
           </>
         )}
       </Main>
