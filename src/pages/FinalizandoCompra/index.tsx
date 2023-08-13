@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 const Main = styled.main`
   width: 100%;
-  min-height: 100vh;
+  min-height: 80vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -30,17 +30,17 @@ const Formulario = styled.div`
 
   @media (max-width: 425px) {
     width: 400px;
-    height: 600px;
+    height: 400px;
   }
 
   @media (max-width: 375px) {
     width: 320px;
-    height: 600px;
+    height: 400px;
   }
 
   @media (max-width: 320px) {
     width: 300px;
-    height: 650px;
+    height: 400px;
     padding: 60px 20px;
   }
 `;
@@ -109,9 +109,14 @@ const ArrowGoBack = styled.img`
     position: absolute;
     width: 30px;
     left: 10%;
+    top: 20%;
 
     &:hover {
         cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+        left: 3%;
     }
 
     @media (max-width: 425px) {
@@ -126,13 +131,14 @@ const FormularioEntrega = styled.div`
   border: 2px solid #333;
   border-radius: 10px;
   display: flex;
+  margin: 50px;
   flex-direction: column;
   padding: 60px 40px;
   gap: 15px;
 
   @media (max-width: 425px) {
     width: 400px;
-    height: 600px;
+    min-height: 850px;
   }
 
   @media (max-width: 375px) {
@@ -151,6 +157,10 @@ const FormEntrega = styled.form`
   width: 100%;
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 425px) {
+    min-height: 500px;
+  }
 `;
 
 const InputsForm = styled.div`
@@ -159,6 +169,12 @@ const InputsForm = styled.div`
   display: flex;
   justify-content: space-around;
   margin-bottom: 20px;
+
+  @media (max-width: 425px) {
+    min-height: 600px;
+    flex-direction: column;
+  }
+
 `;
 
 const CadastrarCEP = styled.div`
@@ -184,7 +200,6 @@ const FinalizandoCompra = () => {
   const handleCustomPaymentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCustomPayment(e.target.value);
   };
-  
 
   const handlePaymentMethodChange = (e: { target: { value: SetStateAction<string>; }; }) => {
     setSelectedPaymentMethod(e.target.value);
@@ -276,6 +291,12 @@ const FinalizandoCompra = () => {
         localStorage.setItem("selectedParcelas", parcelas);
       } else {
         localStorage.removeItem("selectedParcelas");
+      }
+
+      if (selectedPaymentMethod === "outro") {
+        localStorage.setItem("selectedOutro", customPayment);
+      } else {
+        localStorage.removeItem("selectedOutro");
       }
 
       navigate("/finalizado");
