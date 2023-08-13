@@ -8,7 +8,9 @@ interface InputProps {
     onChange?: any,
     maxLength?: number,
     readonly?: boolean,
-    placeholder?: string
+    placeholder?: string,
+    required?: boolean,
+    className?: string
 }
 
 const InputContainer = styled.div`
@@ -74,10 +76,11 @@ const Input = (props: InputProps) => {
         type={props.type} 
         value={props.value}
         onChange={props.onChange}
-        required
         maxLength={props.maxLength}
         readOnly={props.readonly}
         placeholder={props.placeholder}
+        required={props.required}
+        className={props.className}
       />
       <LabelForInput>{props.name}</LabelForInput>
       <Underline></Underline>

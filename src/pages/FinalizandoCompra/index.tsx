@@ -1,9 +1,10 @@
 import { styled } from "styled-components";
 import { Header } from "../../components/header";
-import { SetStateAction, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import Arrow from "../../assets/arrow.svg";
 import { Input } from "../../components/input";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Main = styled.main`
   width: 100%;
@@ -149,6 +150,15 @@ const FormularioEntrega = styled.div`
 const FormEntrega = styled.form`
   width: 100%;
   display: flex;
+  flex-direction: column;
+`;
+
+const InputsForm = styled.div`
+  width: 100%;
+  height: 80%;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
 `;
 
 const CadastrarCEP = styled.div`
@@ -189,6 +199,10 @@ const FinalizandoCompra = () => {
     setSelectedPaymentMethod(previousSelectedMethod);
   };
 
+  const [rua, setRua] = useState("");
+  const [bairro, setBairro] = useState("");
+  const [numero, setNumero] = useState("");
+
   const [cep, setCep] = useState("");
   const [estadoEntrega, setEstadoEntrega] = useState("");
   const [cidadeEntrega, setCidadeEntrega] = useState("");
@@ -206,7 +220,7 @@ const FinalizandoCompra = () => {
     try {
       const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
       const data = response.data;
-  
+
       if (!data.erro) {
         setEstadoEntrega(data.uf);
         setCidadeEntrega(data.localidade);
@@ -215,16 +229,44 @@ const FinalizandoCompra = () => {
       alert("Erro ao obter detalhes do CEP");
     }
   };
-  
+
+  const navigate = useNavigate();
+  const [formValid, setFormValid] = useState(false);
+
+  const validateForm = () => {
+    const paymentMethodValid = selectedPaymentMethod !== "";
+    const addressValid = cep !== "" && rua !== "" && bairro !== "" && numero !== "";
+
+    if (paymentMethodValid && addressValid) {
+      if (selectedPaymentMethod === "cartao") {
+        setFormValid(parcelas !== "");
+      } else {
+        setFormValid(true);
+      }
+    } else {
+      setFormValid(false);
+    }
+  };
+
+  useEffect(() => {
+    validateForm();
+  }, [cep, rua, bairro, numero, selectedPaymentMethod, parcelas]);
+
   const handleFinalizarClick = () => {
-    // Salve os dados no localStorage antes de redirecionar
-    const dadosEntrega = {
-      cep,
-      estadoEntrega,
-      cidadeEntrega,
-      // outros campos de entrega que você queira salvar
-    };
-    localStorage.setItem("dadosEntrega", JSON.stringify(dadosEntrega));
+    if (formValid) {
+      const dadosEntrega = {
+        cep,
+        estadoEntrega,
+        cidadeEntrega,
+        rua,
+        bairro,
+        numero
+      };
+      localStorage.setItem("dadosEntrega", JSON.stringify(dadosEntrega));
+      navigate("/finalizado");
+    } else {
+      alert("Preencha todos os campos obrigatórios antes de finalizar.");
+    }
   };
 
   return (
@@ -311,7 +353,7 @@ const FinalizandoCompra = () => {
           </Formulario>
         ) : (
           <>
-            <ArrowGoBack 
+            <ArrowGoBack
               src={Arrow}
               alt="Voltar para pagina anterior"
               onClick={handleBackClick}
@@ -319,47 +361,60 @@ const FinalizandoCompra = () => {
             <FormularioEntrega>
               <TitleFormulario>Endereço para entrega</TitleFormulario>
               <FormEntrega>
-                <CadastrarCEP>
-                  <Input
-                    name="CEP"
-                    type="text"
-                    value={cep}
-                    onChange={handleCepChange}
-                    maxLength={8}
-                  />
-                  <Input
-                    type="text"
-                    name=""
-                    value={estadoEntrega}
-                    readonly
-                    placeholder="Estado"
-                  />
-                  <Input
-                    type="text"
-                    name=""
-                    value={cidadeEntrega}
-                    readonly
-                    placeholder="Cidade"
-                  />
-                </CadastrarCEP>
-                <CadastrarLogradouro>
-                  <Input 
-                    name="Rua"
-                    type="text"
-                  />
-                  <Input 
-                    name="Bairro"
-                    type="text"
-                  />
-                  <Input 
-                    name="Numero"
-                    type="text"
-                  />
-                </CadastrarLogradouro>
+                <InputsForm>
+                  <CadastrarCEP>
+                    <Input
+                      name="CEP"
+                      type="text"
+                      value={cep}
+                      onChange={handleCepChange}
+                      maxLength={8}
+                    />
+                    <Input
+                      type="text"
+                      name=""
+                      value={estadoEntrega}
+                      readonly
+                      placeholder="Estado"
+                    />
+                    <Input
+                      type="text"
+                      name=""
+                      value={cidadeEntrega}
+                      readonly
+                      placeholder="Cidade"
+                    />
+                  </CadastrarCEP>
+                  <CadastrarLogradouro>
+                    <Input
+                      name="Rua"
+                      type="text"
+
+                      value={rua}
+                      onChange={(e: { target: { value: SetStateAction<string>; }; }) => setRua(e.target.value)}
+                    />
+                    <Input
+                      name="Bairro"
+                      type="text"
+                      value={bairro}
+                      onChange={(e: { target: { value: SetStateAction<string>; }; }) => setBairro(e.target.value)}
+                    />
+                    <Input
+                      name="Numero"
+                      type="text"
+                      
+                      value={numero}
+                      onChange={(e: { target: { value: SetStateAction<string>; }; }) => setNumero(e.target.value)}
+                    />
+                  </CadastrarLogradouro>
+                </InputsForm>
+                <CustomButton
+                  type="submit"
+                  onClick={handleFinalizarClick}
+                  disabled={!formValid}
+                >Finalizar</CustomButton>
               </FormEntrega>
-              <CustomButton
-                onClick={handleFinalizarClick}
-              >Finalizar</CustomButton>
+
             </FormularioEntrega>
           </>
         )}
