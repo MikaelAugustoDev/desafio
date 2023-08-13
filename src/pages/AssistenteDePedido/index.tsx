@@ -174,9 +174,10 @@ const AssistenteDePedido = () => {
 
   const navigate = useNavigate();
 
-  const handleProductSelectNavigate = (productName: Product) => {
-    setSelectedProduct(productName);
-    navigate(`/assistentedepedido/${productName.name}`);
+  const handleProductSelectNavigate = (selectedProduct: Product) => {
+    setSelectedProduct(selectedProduct);
+    localStorage.setItem("selectedProduct", JSON.stringify(selectedProduct));
+    navigate(`/assistentedepedido/${selectedClient?.name}`);
   };
   
   const [productCadastrado, setProductCadastrado] = useState<Product | null>(null);

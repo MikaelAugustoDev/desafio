@@ -179,6 +179,12 @@ const FinalizandoCompra = () => {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("");
   const [parcelas, setParcelas] = useState("");
   const [continueButtonEnabled, setContinueButtonEnabled] = useState(false);
+  const [customPayment, setCustomPayment] = useState("");
+
+  const handleCustomPaymentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCustomPayment(e.target.value);
+  };
+  
 
   const handlePaymentMethodChange = (e: { target: { value: SetStateAction<string>; }; }) => {
     setSelectedPaymentMethod(e.target.value);
@@ -192,7 +198,9 @@ const FinalizandoCompra = () => {
   const handleContinueClick = () => {
     setShowForm(false);
     setPreviousSelectedMethod(selectedPaymentMethod);
+    localStorage.setItem("selectedPaymentMethod", selectedPaymentMethod);
   };
+
 
   const handleBackClick = () => {
     setShowForm(true);
@@ -263,6 +271,13 @@ const FinalizandoCompra = () => {
         numero
       };
       localStorage.setItem("dadosEntrega", JSON.stringify(dadosEntrega));
+
+      if (selectedPaymentMethod === "cartao") {
+        localStorage.setItem("selectedParcelas", parcelas);
+      } else {
+        localStorage.removeItem("selectedParcelas");
+      }
+
       navigate("/finalizado");
     } else {
       alert("Preencha todos os campos obrigatórios antes de finalizar.");
@@ -340,6 +355,8 @@ const FinalizandoCompra = () => {
                   <CustomInput
                     type="text"
                     placeholder="Digite a forma de pagamento"
+                    value={customPayment}
+                    onChange={handleCustomPaymentChange}
                   />
                 )}
               </PaymentMethod>
