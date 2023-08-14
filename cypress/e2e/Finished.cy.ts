@@ -1,3 +1,5 @@
+// Testando a rota de pedido finalizado
+
 describe("Finished Page", () => {
   beforeEach(() => {
     cy.visit("/finalizado");

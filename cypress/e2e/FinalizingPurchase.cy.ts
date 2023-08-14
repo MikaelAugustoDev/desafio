@@ -1,3 +1,5 @@
+// Testando a rota de pagamentos
+
 describe("FinalizingPurchase", () => {
   beforeEach(() => {
     cy.visit("/assistentedepedido/notebook");

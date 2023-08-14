@@ -1,3 +1,5 @@
+// Testando a rota de registro de clientes
+
 describe("Customer Registration Page", () => {
   it("renders the customer registration page without errors", () => {
     cy.visit("/cadastrodeclientes");

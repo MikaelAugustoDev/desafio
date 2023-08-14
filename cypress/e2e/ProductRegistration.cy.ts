@@ -1,3 +1,5 @@
+// Testando a rota de registro de produtos
+
 describe("Product Registration Page", () => {
   it("renders the product registration page without errors", () => {
     cy.visit("/cadastrodeprodutos");

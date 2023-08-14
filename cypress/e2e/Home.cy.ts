@@ -1,3 +1,5 @@
+// Testando a rota home
+
 describe("Home", () => {
   beforeEach(() => {
     cy.visit("/home");

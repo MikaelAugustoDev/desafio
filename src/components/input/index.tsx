@@ -1,17 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import styled from "styled-components";
 
+// Tipando as Props
+
 interface InputProps {
-    name: string,
-    type: string,
-    value?: string,
-    onChange?: any,
-    maxLength?: number,
-    readonly?: boolean,
-    placeholder?: string,
-    required?: boolean,
-    className?: string
+  name: string,
+  type: string,
+  value?: string,
+  onChange?: any,
+  maxLength?: number,
+  readonly?: boolean,
+  placeholder?: string,
+  required?: boolean,
+  className?: string
 }
+
+// Estilização em Styled-Components
 
 const InputContainer = styled.div`
   position: relative;

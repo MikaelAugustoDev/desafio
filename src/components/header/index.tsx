@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
+// Estilização em Styled-Components
+
 const Headers = styled.header`
   width: 100%;
   height: 100px;
@@ -18,6 +20,8 @@ const Logo = styled(Link)`
   color: #000;
   font-weight: 500;
 `;
+
+// Lógica para a animação do menu
 
 const MenuHamburguer = styled.label<{ $isOpen: boolean }>`
   cursor: pointer;
@@ -94,6 +98,8 @@ const LinkNavigation = styled(Link)`
 
 const Header = () => {
 
+  // Lógica para a animação de abrir e fechar menu
+
   const [isOpen, setIsOpen] = useState(false);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -102,10 +108,6 @@ const Header = () => {
     setIsOpen(!isOpen);
     setIsMenuOpen(!isMenuOpen);
   };
-
-  // const handleLinkClick = () => {
-  //   setIsOpen(false);
-  // };
 
   useEffect(() => {
     if (isMenuOpen) {

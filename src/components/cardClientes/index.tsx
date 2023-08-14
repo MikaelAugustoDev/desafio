@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import ImageClientTest from "../../assets/user.svg";
 
+// Tipagem das props do componente
+
 interface PropsCardClientes {
     name: string,
     onClick: React.MouseEventHandler<HTMLDivElement>,
@@ -8,6 +10,8 @@ interface PropsCardClientes {
     email: string,
     code: string,
 }
+
+// Estilização em Styled-Components
 
 const Card = styled.div`
     width: 200px;

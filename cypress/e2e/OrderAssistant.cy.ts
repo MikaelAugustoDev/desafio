@@ -1,3 +1,5 @@
+// Testando a rota de registro de assistente de pedidos
+
 describe("OrderAssistant", () => {
   beforeEach(() => {
     cy.visit("/assistentedepedido");

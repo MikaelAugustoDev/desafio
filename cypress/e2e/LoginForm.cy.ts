@@ -1,3 +1,5 @@
+// Testando a rota de login (rota primaria)
+
 describe("LoginForm", () => {
   beforeEach(() => {
     cy.visit("/");

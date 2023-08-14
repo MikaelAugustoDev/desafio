@@ -1,3 +1,5 @@
+// Usuario de exemplo fazendo todo o processo
+
 describe("example of user using the website", () => {
   it("user logging in and going to product registration", () => {
     cy.visit("/");

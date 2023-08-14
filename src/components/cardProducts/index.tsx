@@ -1,25 +1,28 @@
 import { styled } from "styled-components";
 import ImageProductTest from "../../assets/image.svg";
 
+// Tipagem das props do componente
 interface PropsCardProducts {
-    onClick?: React.MouseEventHandler<HTMLDivElement>,
-    description: string,
-    price: number,
-    stock: number,
-    name?: string
+  onClick?: React.MouseEventHandler<HTMLDivElement>,
+  description: string,
+  price: number,
+  stock: number,
+  name?: string
 }
 
-const Card = styled.div`
-    width: 250px;
-    height: 350px;
-    border: 2px solid #333;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
+// Estilização em Styled-Components
 
-    &:hover {
-        cursor: pointer;
-    }
+const Card = styled.div`
+  width: 250px;
+  height: 350px;
+  border: 2px solid #333;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const ImageProduct = styled.img`
