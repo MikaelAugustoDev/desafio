@@ -7,23 +7,23 @@ import Arrow from "../../assets/arrow.svg";
 import { Input } from "../../components/input";
 import { useNavigate } from "react-router-dom";
 
-// Tipagem de dados:
+// Tipagem de dados
 
 interface Client {
-    codigo: string,
-    name: string,
-    cpfCnpj: number,
-    email: string
+  code: string,
+  name: string,
+  cpfCnpj: number,
+  email: string
 }
 
 interface Product {
-    name: string;
-    description: string;
-    price: number;
-    stock: number;
+  name: string;
+  description: string;
+  price: number;
+  stock: number;
 }
 
-// Produtos já cadastrados:
+// Produtos previamente cadastrados:
 
 const products: Product[] = [
   {
@@ -46,7 +46,7 @@ const products: Product[] = [
   }
 ];
 
-// Estilizações:
+// Estilizações em Styled-Components
 
 const Main = styled.main`
     width: 100%;
@@ -60,7 +60,7 @@ const Main = styled.main`
     }
 `;
 
-const TelaDeEscolhaDoCliente = styled.div`
+const CustomerChoiceScreen = styled.div`
     width: 100%;
     height: 100%;
     display: flex;
@@ -95,7 +95,7 @@ const Clients = styled.div`
     }
 `;
 
-const TelaDeEscolhaDeProdutos = styled.div`
+const ProductSelectionScreen = styled.div`
     width: 100%;
     height: 100%;
     display: flex;
@@ -147,9 +147,10 @@ const ArrowGoBack = styled.img`
     }
 `;
 
-const AssistenteDePedido = () => {
+const OrderAssistant = () => {
 
-  // Voltar para a etapa anterior
+  // Lógica para retornar ao Formulario anterior
+
   const handleGoBack = () => {
     setSelectedClient(null);
     setSelectedProduct(null);
@@ -158,9 +159,13 @@ const AssistenteDePedido = () => {
   const [selectedClient, setSelectedClient] = useState<Client | null>(null);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
+  // Lógica para saber em qual cliente estou escolhendo para poder pegar suas informações posteriormente
+
   const handleClientSelect = (client: Client) => {
     setSelectedClient(client);
   };
+
+  // Lógica para procurar em tempo real por produtos
 
   const [searchInput, setSearchInput] = useState<string>("");
 
@@ -168,11 +173,15 @@ const AssistenteDePedido = () => {
     setSearchInput(event.target.value);
   };
 
+  // Filtrando os produtos para que apareçam ao digitar no input
+
   const filteredProducts = products.filter((product: Product) =>
     product.name.toLowerCase().includes(searchInput.toLowerCase())
   );
 
   const navigate = useNavigate();
+
+  // Lógica que salva as informações do produto selecionado em localStorage e redireciona o cliente para rota de pagamento daquele produto
 
   const handleProductSelectNavigate = (selectedProduct: Product) => {
     setSelectedProduct(selectedProduct);
@@ -183,26 +192,36 @@ const AssistenteDePedido = () => {
   const [productCadastrado, setProductCadastrado] = useState<Product | null>(null);
 
   const [clientCadastrado, setClientCadastrado] = useState<Client | null>(null);
+
+  // Lógica para armazenar e exibir as informações que vieram das rotas de cadastro e garantir que sempre apareça a escolah de clientes primeiro
   
   useEffect(() => {
-    const produtoArmazenado = localStorage.getItem("selectedProduct");
-    if (produtoArmazenado) {
-      setSelectedClient(JSON.parse(produtoArmazenado));
+
+    setSelectedClient(null);
+    setSelectedProduct(null);
+    
+    const storedProduct = localStorage.getItem("selectedProduct");
+    if (storedProduct) {
+      setSelectedClient(JSON.parse(storedProduct));
+    } else {
+      setSelectedProduct(null);
     }
 
-    const clienteArmazenado = localStorage.getItem("selectedClient");
-    if (clienteArmazenado) {
-      setSelectedProduct(JSON.parse(clienteArmazenado));
+    const storedClient = localStorage.getItem("selectedClient");
+    if (storedClient) {
+      setSelectedProduct(JSON.parse(storedClient));
+    } else {
+      setSelectedClient(null);
     }
   
-    const produtoCadastradoArmazenado = localStorage.getItem("produtoCadastrado");
-    if (produtoCadastradoArmazenado) {
-      setProductCadastrado(JSON.parse(produtoCadastradoArmazenado));
+    const productRegisteredAndStored = localStorage.getItem("registeredProduct");
+    if (productRegisteredAndStored) {
+      setProductCadastrado(JSON.parse(productRegisteredAndStored));
     }
 
-    const clienteCadastradoArmazenado = localStorage.getItem("clienteCadastrado");
-    if (clienteCadastradoArmazenado) {
-      setClientCadastrado(JSON.parse(clienteCadastradoArmazenado));
+    const registeredAndStoredCustomer = localStorage.getItem("registeredCustomer");
+    if (registeredAndStoredCustomer) {
+      setClientCadastrado(JSON.parse(registeredAndStoredCustomer));
     }
   }, []);
 
@@ -211,16 +230,16 @@ const AssistenteDePedido = () => {
       <Header />
       <Main>
         {selectedClient === null ? (
-          <TelaDeEscolhaDoCliente>
+          <CustomerChoiceScreen>
             <TitleClient>Escolha um cliente</TitleClient>
             <Clients>
               {clientCadastrado && (
                 <CardClientes
-                  key={clientCadastrado.codigo}
+                  key={clientCadastrado.code}
                   name={clientCadastrado.name}
                   cpfCnpj={clientCadastrado.cpfCnpj}
                   email={clientCadastrado.email}
-                  codigo={clientCadastrado.codigo}
+                  code={clientCadastrado.code}
                   onClick={() => handleClientSelect(clientCadastrado)}
                 />
               )}
@@ -228,18 +247,30 @@ const AssistenteDePedido = () => {
                 name="Mikael"
                 onClick={() => handleClientSelect({
                   name: "Mikael",
-                  codigo: "",
+                  code: "",
                   cpfCnpj: 0,
                   email: ""
                 })} 
                 cpfCnpj={0} 
                 email={""} 
-                codigo={""}              
+                code={""}              
+              />
+              <CardClientes 
+                name="Humberto"
+                onClick={() => handleClientSelect({
+                  name: "Humberto",
+                  code: "",
+                  cpfCnpj: 0,
+                  email: ""
+                })} 
+                cpfCnpj={0} 
+                email={""} 
+                code={""}              
               />
             </Clients>
-          </TelaDeEscolhaDoCliente>
+          </CustomerChoiceScreen>
         ) : selectedProduct === null ? (
-          <TelaDeEscolhaDeProdutos>
+          <ProductSelectionScreen>
             <ArrowGoBack 
               src={Arrow}
               onClick={handleGoBack}
@@ -274,14 +305,11 @@ const AssistenteDePedido = () => {
               ))}
             </Products>
 
-          </TelaDeEscolhaDeProdutos>
-        ) : (
-          <>
-          </>
-        )}
+          </ProductSelectionScreen>
+        ) : null}
       </Main>
     </>
   );
 };
 
-export { AssistenteDePedido };
+export { OrderAssistant };

@@ -6,7 +6,7 @@ interface PropsCardClientes {
     onClick: React.MouseEventHandler<HTMLDivElement>,
     cpfCnpj: number,
     email: string,
-    codigo: string,
+    code: string,
 }
 
 const Card = styled.div`
@@ -40,7 +40,7 @@ const Card = styled.div`
     }
 `;
 
-const ImageClient = styled.img`
+const ImgClient = styled.img`
     width: 150px;
     height: 150px;
     border: 2px solid #333;
@@ -57,7 +57,7 @@ const ImageClient = styled.img`
     }
 `;
 
-const NameClient = styled.p`
+const ClientName = styled.p`
     color: #333;
     font-size: 18px;
 `;
@@ -65,11 +65,11 @@ const NameClient = styled.p`
 const CardClientes = (props: PropsCardClientes) => {
   return (
     <Card onClick={props.onClick}>
-      <ImageClient 
+      <ImgClient 
         src={ImageClientTest}
         alt="Imagem de Perfil"
       />
-      <NameClient>{props.name}</NameClient>
+      <ClientName>{props.name}</ClientName>
     </Card>
   );
 };

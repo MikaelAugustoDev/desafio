@@ -3,6 +3,8 @@ import { Input } from "../../components/input";
 import { ChangeEvent, useState } from "react";
 import { Header } from "../../components/header";
 
+// Estilização em Styled-Components
+
 const Main = styled.main`
   width: 100%;
   min-height: 100vh;
@@ -104,6 +106,8 @@ const CustomerRegistration = () => {
   const [cpfCnpj, setCpfCnpj] = useState("");
   const [email, setEmail] = useState("");
 
+  // Pegando as informações digitadas nos inputs
+
   const handleCodigoChange = (e: ChangeEvent<HTMLInputElement>) => {
     setCode(e.target.value);
   };
@@ -120,6 +124,8 @@ const CustomerRegistration = () => {
     setEmail(e.target.value);
   };
 
+  // Salvando as informações em "cache persistente"
+
   const handleCadastrar = () => {
     const dadosDoCliente = {
       code: code,
@@ -128,7 +134,7 @@ const CustomerRegistration = () => {
       email: email
     };
   
-    localStorage.setItem("clienteCadastrado", JSON.stringify(dadosDoCliente));
+    localStorage.setItem("registeredCustomer", JSON.stringify(dadosDoCliente));
     alert("Cliente Cadastrado com sucesso!");
   };
   

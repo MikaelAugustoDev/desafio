@@ -3,7 +3,7 @@ import { LoginForm } from "./LoginForm";
 import { Home } from "./Home";
 import { CustomerRegistration } from "./CustomerRegistration";
 import { ProductRegistration } from "./ProductRegistration";
-import { AssistenteDePedido } from "./AssistenteDePedido";
+import { OrderAssistant } from "./OrderAssistant";
 import { FinalizandoCompra } from "./FinalizandoCompra";
 import { Finalizado } from "./Finalizado";
 
@@ -15,7 +15,7 @@ const AppRouter = () => {
         <Route path="/home" element={ <Home /> }/>
         <Route path="/cadastrodeclientes" element={ <CustomerRegistration /> }/>
         <Route path="/cadastrodeprodutos" element={ <ProductRegistration /> }/>
-        <Route path="/assistentedepedido" element={ <AssistenteDePedido /> }/>
+        <Route path="/assistentedepedido" element={ <OrderAssistant /> }/>
         <Route path="/assistentedepedido/:productName" element={ <FinalizandoCompra /> } />
         <Route path="/finalizado" element={ <Finalizado /> } />
       </Routes>

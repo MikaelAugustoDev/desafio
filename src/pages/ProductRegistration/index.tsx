@@ -3,6 +3,8 @@ import { Header } from "../../components/header";
 import { Input } from "../../components/input";
 import { ChangeEvent, useState } from "react";
 
+// Estilizações em Styled-Components
+
 const Main = styled.main`
   width: 100%;
   min-height: 100vh;
@@ -152,6 +154,8 @@ const ProductRegistration = () => {
   const [description, setDescription] = useState("");
   const [isActive, setIsActive] = useState(false);
 
+  // Pegando os valores digitados nos inputs
+
   const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
@@ -172,6 +176,7 @@ const ProductRegistration = () => {
     setIsActive(!isActive);
   };
 
+  // Salvando as informações digitadas no "cache persistente"
 
   const handleCadastrar = () => {
     const productData = {
