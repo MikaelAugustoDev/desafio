@@ -144,7 +144,7 @@ const InputCheckbox = styled.input`
   margin-right: 8px;
 `;
 
-const CadastroDeProdutos = () => {
+const ProductRegistration = () => {
 
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
@@ -234,4 +234,4 @@ const CadastroDeProdutos = () => {
   );
 };
 
-export { CadastroDeProdutos };
+export { ProductRegistration };
