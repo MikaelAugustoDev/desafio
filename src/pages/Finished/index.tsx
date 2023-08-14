@@ -2,6 +2,8 @@ import { styled } from "styled-components";
 import { Header } from "../../components/header";
 import { useNavigate } from "react-router-dom";
 
+// Estilização em Styled-Components
+
 const Main = styled.main`
   width: 100%;
   min-height: 80vh;
@@ -14,7 +16,7 @@ const Main = styled.main`
   }
 `;
 
-const TelaDeInformacoes = styled.div`
+const InformationScreen = styled.div`
   width: 40%;
   height: 400px;
   border: 2px solid #333;
@@ -45,7 +47,7 @@ const Title = styled.h1`
   text-align: center;
 `;
 
-const DadosProduto = styled.div`
+const ProductData = styled.div`
   width: 100%;
   height: 30%;
   display: flex;
@@ -78,7 +80,7 @@ const Payment = styled.p`
   font-weight: 400;
 `;
 
-const DadosEntrega = styled.div`
+const DeliveryDate = styled.div`
   width: 100%;
   height: 30%;
   display: flex;
@@ -86,13 +88,13 @@ const DadosEntrega = styled.div`
   align-items: center;
 `;
 
-const InfoEnvio = styled.div`
+const ShippingInformation = styled.div`
   width: 100%;
   height: 90%;
   display: flex;
 `;
 
-const ButtonVoltar = styled.button`
+const BackButton = styled.button`
   width: 250px;
   height: 50px;
   background-color: #FFF;
@@ -107,7 +109,7 @@ const ProductName = styled.h2`
   font-weight: 400;
 `;
 
-const TitleEntrega = styled.h3`
+const TitleDelivery = styled.h3`
   color: #333;
   font-size: 30px;
   font-weight: 400;
@@ -144,16 +146,20 @@ const Span = styled.span`
   font-weight: 600;
 `;
 
-const Finalizado = () => {
+const Finished = () => {
 
-  const dadosEntregaString = localStorage.getItem("dadosEntrega");
-  const dadosEntrega = dadosEntregaString ? JSON.parse(dadosEntregaString) : {};
+  // Pegando todos os dados para imprimir na tela
+
+  const DeliveryDataString = localStorage.getItem("deliveryData");
+  const DeliveryData = DeliveryDataString ? JSON.parse(DeliveryDataString) : {};
   const selectedPaymentMethod = localStorage.getItem("selectedPaymentMethod");
   const selectedParcelas = localStorage.getItem("selectedParcelas");
   const selectedProduct = JSON.parse(localStorage.getItem("selectedProduct") || "null");
   const selectedOutro = localStorage.getItem("selectedOutro");
 
   const navigate = useNavigate();
+
+  // Lógica para voltar para a pagina inicial
 
   const handleButton = () => {
     navigate("/home");
@@ -163,35 +169,35 @@ const Finalizado = () => {
     <>  
       <Header />
       <Main>
-        <TelaDeInformacoes>
+        <InformationScreen>
           <Title>Compra realizada com sucesso!</Title>
-          <DadosProduto>
+          <ProductData>
             <ProductName>{selectedProduct?.name}</ProductName>
             <PaymentMethod>
               <PriceTotal>R${selectedProduct?.price}</PriceTotal>
               <Payment> {selectedPaymentMethod === "cartao" && <P> em {selectedParcelas} no cartão</P> || selectedPaymentMethod === "dinheiro" && <P> em {selectedPaymentMethod}</P> || selectedPaymentMethod === "outro" && <P> com {selectedOutro}</P>}</Payment>
             </PaymentMethod>
-          </DadosProduto>
-          <DadosEntrega>
-            <TitleEntrega>Pedido enviado</TitleEntrega>
-            <InfoEnvio>
+          </ProductData>
+          <DeliveryDate>
+            <TitleDelivery>Pedido enviado</TitleDelivery>
+            <ShippingInformation>
               <CEP>
-                <P>{dadosEntrega.cep}</P>
-                <Span>{dadosEntrega.estadoEntrega}</Span>
-                <Span>{dadosEntrega.cidadeEntrega}</Span>
+                <P>{DeliveryData.cep}</P>
+                <Span>{DeliveryData.estadoEntrega}</Span>
+                <Span>{DeliveryData.cidadeEntrega}</Span>
               </CEP>
               <Streeat>
-                <P>Rua <Span>{dadosEntrega.rua}</Span></P>
-                <P>Bairro <Span>{dadosEntrega.bairro}</Span></P>
-                <P>N° <Span>{dadosEntrega.numero}</Span></P>
+                <P>Rua <Span>{DeliveryData.rua}</Span></P>
+                <P>Bairro <Span>{DeliveryData.bairro}</Span></P>
+                <P>N° <Span>{DeliveryData.numero}</Span></P>
               </Streeat>
-            </InfoEnvio>
-          </DadosEntrega>
-          <ButtonVoltar onClick={handleButton}>Voltar a pagina principal</ButtonVoltar>
-        </TelaDeInformacoes>
+            </ShippingInformation>
+          </DeliveryDate>
+          <BackButton onClick={handleButton}>Voltar a pagina principal</BackButton>
+        </InformationScreen>
       </Main>
     </>
   );
 };
 
-export { Finalizado };
+export { Finished };

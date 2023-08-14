@@ -295,7 +295,7 @@ const FinalizingPurchase = () => {
 
   const handleFinalizarClick = () => {
     if (formValid) {
-      const dadosEntrega = {
+      const DeliveryData = {
         cep,
         estadoEntrega,
         cidadeEntrega,
@@ -303,7 +303,7 @@ const FinalizingPurchase = () => {
         bairro,
         numero
       };
-      localStorage.setItem("dadosEntrega", JSON.stringify(dadosEntrega));
+      localStorage.setItem("deliveryData", JSON.stringify(DeliveryData));
 
       if (selectedPaymentMethod === "cartao") {
         localStorage.setItem("selectedParcelas", parcelas);
