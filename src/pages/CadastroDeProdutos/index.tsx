@@ -11,7 +11,7 @@ const Main = styled.main`
   justify-content: center;
 `;
 
-const Formulario = styled.div`
+const FormView = styled.div`
   width: 700px;
   height: 550px;
   border: 2px solid #333;
@@ -36,7 +36,7 @@ const Formulario = styled.div`
   }
 `;
 
-const TitleFormulario = styled.h1`
+const TitleForm = styled.h1`
   font-size: 30px;
   color: #333;
 
@@ -52,7 +52,7 @@ const Form = styled.form`
   flex-direction: column;
 `;
 
-const DivInfomations = styled.div`
+const Infomations = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
@@ -62,7 +62,7 @@ const DivInfomations = styled.div`
   }
 `;
 
-const DivInputs = styled.div`
+const Inputs = styled.div`
   display: flex;
   width: 50%;
   flex-direction: column;
@@ -72,7 +72,7 @@ const DivInputs = styled.div`
   }
 `;
 
-const DescricaoDoProduto = styled.textarea`
+const ProductDescription = styled.textarea`
   width: 50%;
   height: 250px;
   padding: 10px;
@@ -92,7 +92,7 @@ const DescricaoDoProduto = styled.textarea`
   }
 `;
 
-const ButtonCadastrar = styled.button`
+const RegisterButton = styled.button`
   width: 300px;
   height: 50px;
   border: none;
@@ -121,7 +121,7 @@ const ButtonCadastrar = styled.button`
   }
 `;
 
-const CodigoProduct = styled.div`
+const ProductCode = styled.div`
   display: flex;
   gap: 15px;
   margin-left: 30px;
@@ -135,51 +135,54 @@ const CodigoProduct = styled.div`
   }
 `;
 
-const LabelProduct = styled.label``;
+const LabelProduct = styled.label`
+  font-size: 16px;
+  color: #333;
+`;
 
 const InputCheckbox = styled.input`
-
+  margin-right: 8px;
 `;
 
 const CadastroDeProdutos = () => {
 
   const [name, setName] = useState("");
-  const [preco, setPreco] = useState("");
-  const [quantidade, setQuantidade] = useState("");
-  const [descricao, setDescricao] = useState("");
-  const [estaAtivo, setEstaAtivo] = useState(false);
+  const [price, setPrice] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [description, setDescription] = useState("");
+  const [isActive, setIsActive] = useState(false);
 
   const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
 
   const handlePrecoChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setPreco(e.target.value);
+    setPrice(e.target.value);
   };
 
   const handleQuantidadeChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setQuantidade(e.target.value);
+    setQuantity(e.target.value);
   };
 
   const handleDescricaoChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setDescricao(e.target.value);
+    setDescription(e.target.value);
   };
 
   const handleEstaAtivoChange = () => {
-    setEstaAtivo(!estaAtivo);
+    setIsActive(!isActive);
   };
 
 
   const handleCadastrar = () => {
-    const dadosDoProduto = {
+    const productData = {
       name: name,
-      description: descricao,
-      price: preco,
-      stock: quantidade,
-      estaAtivo: estaAtivo
+      description: description,
+      price: price,
+      stock: quantity,
+      isActive: isActive
     };
   
-    localStorage.setItem("produtoCadastrado", JSON.stringify(dadosDoProduto));
+    localStorage.setItem("registeredProduct", JSON.stringify(productData));
     alert("Produto Cadastrado com sucesso!");
   };
 
@@ -187,11 +190,11 @@ const CadastroDeProdutos = () => {
     <>
       <Header/>
       <Main>
-        <Formulario>
-          <TitleFormulario>Cadastre seu Produto</TitleFormulario>
+        <FormView>
+          <TitleForm>Cadastre seu Produto</TitleForm>
           <Form>
-            <DivInfomations>
-              <DivInputs>
+            <Infomations>
+              <Inputs>
                 <Input
                   name="Nome do Produto"
                   type="text"
@@ -207,25 +210,25 @@ const CadastroDeProdutos = () => {
                   type="text"
                   onChange={handleQuantidadeChange}
                 />
-                <CodigoProduct>
+                <ProductCode>
                   <InputCheckbox
                     type="checkbox"
                     id="check"
-                    checked={estaAtivo}
+                    checked={isActive}
                     onChange={handleEstaAtivoChange}
                   />
                   <LabelProduct htmlFor="check">O código está ativo?</LabelProduct>
-                </CodigoProduct>
-              </DivInputs>
-              <DescricaoDoProduto 
+                </ProductCode>
+              </Inputs>
+              <ProductDescription 
                 placeholder="Descrição do Produto"
                 onChange={handleDescricaoChange}
                 maxLength={130}
               />
-            </DivInfomations>
-            <ButtonCadastrar onClick={handleCadastrar}>Cadastrar Produto</ButtonCadastrar>
+            </Infomations>
+            <RegisterButton onClick={handleCadastrar}>Cadastrar Produto</RegisterButton>
           </Form>
-        </Formulario>
+        </FormView>
       </Main>
     </>
   );

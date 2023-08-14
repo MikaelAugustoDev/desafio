@@ -1,6 +1,6 @@
 describe("LoginForm", () => {
   beforeEach(() => {
-    cy.visit("/"); // Supondo que a página com o LoginForm está acessível em "/"
+    cy.visit("/");
   });
 
   it("renders LoginForm component without errors", () => {
