@@ -2,6 +2,10 @@
 
 #### Projeto feito em React + Typescript como requisitado!
 
+#### Acesse o projeto em https://desafiocartsys.vercel.app/
+
+#### OU
+
 ### Como ter acesso ao projeto em sua maquina:
 
 ##### Clicando em [ <> Code ] tera acesso ao download do arquivo do projeto no formato ZIP
