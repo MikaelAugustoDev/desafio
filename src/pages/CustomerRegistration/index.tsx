@@ -11,11 +11,11 @@ const Main = styled.main`
   justify-content: center;
 
   @media (max-width: 425px) {
-      padding: 30px;
+    padding: 30px;
   }
 `;
 
-const Formulario = styled.div`
+const FormView = styled.div`
   width: 700px;
   height: 500px;
   border: 2px solid #333;
@@ -42,7 +42,7 @@ const Formulario = styled.div`
   }
 `;
 
-const TitleFormulario = styled.h1`
+const TitleForm = styled.h1`
   font-size: 30px;
   color: #333;
 
@@ -58,7 +58,7 @@ const Form = styled.form`
   align-items: center;
 `;
 
-const DivInputs = styled.div`
+const Inputs = styled.div`
   display: flex;
   width: 100%;
 
@@ -67,7 +67,7 @@ const DivInputs = styled.div`
   }
 `;
 
-const ButtonCadastrar = styled.button`
+const RegisterButton = styled.button`
   width: 300px;
   height: 50px;
   border: none;
@@ -97,19 +97,19 @@ const ButtonCadastrar = styled.button`
   }
 `;
 
-const CadastroDeClientes = () => {
+const CustomerRegistration = () => {
   
-  const [codigo, setCodigo] = useState("");
-  const [nome, setNome] = useState("");
+  const [code, setCode] = useState("");
+  const [name, setName] = useState("");
   const [cpfCnpj, setCpfCnpj] = useState("");
   const [email, setEmail] = useState("");
 
   const handleCodigoChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setCodigo(e.target.value);
+    setCode(e.target.value);
   };
 
   const handleNomeChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setNome(e.target.value);
+    setName(e.target.value);
   };
 
   const handleCpfCnpjChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -122,8 +122,8 @@ const CadastroDeClientes = () => {
 
   const handleCadastrar = () => {
     const dadosDoCliente = {
-      codigo: codigo,
-      name: nome,
+      code: code,
+      name: name,
       cpfCnpj: cpfCnpj,
       email: email
     };
@@ -136,10 +136,10 @@ const CadastroDeClientes = () => {
     <>
       <Header/>
       <Main>
-        <Formulario>
-          <TitleFormulario>Cadastrar Cliente</TitleFormulario>
+        <FormView>
+          <TitleForm>Cadastrar Cliente</TitleForm>
           <Form>
-            <DivInputs>
+            <Inputs>
               <Input
                 name="Código"
                 type="text"
@@ -150,8 +150,8 @@ const CadastroDeClientes = () => {
                 type="text"
                 onChange={handleNomeChange}
               />
-            </DivInputs>
-            <DivInputs>
+            </Inputs>
+            <Inputs>
               <Input
                 name="CPF/CNPJ"
                 type="text"
@@ -162,13 +162,13 @@ const CadastroDeClientes = () => {
                 type="text"
                 onChange={handleEmailChange}
               />
-            </DivInputs>
-            <ButtonCadastrar onClick={handleCadastrar}>Cadastrar</ButtonCadastrar>
+            </Inputs>
+            <RegisterButton onClick={handleCadastrar}>Cadastrar</RegisterButton>
           </Form>
-        </Formulario>
+        </FormView>
       </Main>
     </>
   );
 };
 
-export { CadastroDeClientes };
+export { CustomerRegistration };

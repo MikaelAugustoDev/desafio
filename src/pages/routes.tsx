@@ -1,7 +1,7 @@
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import { LoginForm } from "./LoginForm";
 import { Home } from "./Home";
-import { CadastroDeClientes } from "./CadastroDeClientes";
+import { CustomerRegistration } from "./CustomerRegistration";
 import { ProductRegistration } from "./ProductRegistration";
 import { AssistenteDePedido } from "./AssistenteDePedido";
 import { FinalizandoCompra } from "./FinalizandoCompra";
@@ -13,7 +13,7 @@ const AppRouter = () => {
       <Routes>
         <Route path="/" element={ <LoginForm /> } />
         <Route path="/home" element={ <Home /> }/>
-        <Route path="/cadastrodeclientes" element={ <CadastroDeClientes /> }/>
+        <Route path="/cadastrodeclientes" element={ <CustomerRegistration /> }/>
         <Route path="/cadastrodeprodutos" element={ <ProductRegistration /> }/>
         <Route path="/assistentedepedido" element={ <AssistenteDePedido /> }/>
         <Route path="/assistentedepedido/:productName" element={ <FinalizandoCompra /> } />
