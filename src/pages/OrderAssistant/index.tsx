@@ -28,21 +28,21 @@ interface Product {
 const products: Product[] = [
   {
     name: "notebook",
-    description: "notebook dolor sit amet consectetur adipisicing elit. Molestias itaque voluptatem optio libero esse, totam ...",
+    description: "Notebook para testar um card de compra de um notebook gamer, da marca Dell compre se quiser",
     price: 137,
     stock: 26782,
   },
   {
     name: "mesa",
-    description: "Mesa de madeira dolor sit amet consectetur adipisicing elit. Molestias itaque voluptatem optio libero esse, totam ...",
+    description: "Mesa de madeira feita totalmente de madeira, pode comprar que vai chegar",
     price: 561,
     stock: 678,
   },
   {
-    name: "aparador de grama",
-    description: "aparador de grama consectetur adipisicing elit. Molestias itaque voluptatem optio libero esse, totam ...",
-    price: 1967,
-    stock: 19,
+    name: "emprego",
+    description: "Emprego na Cartsys esgotado, vaga ocupada por Mikael Augusto",
+    price: 2000,
+    stock: 0,
   }
 ];
 
