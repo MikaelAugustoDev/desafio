@@ -186,7 +186,7 @@ const OrderAssistant = () => {
   const handleProductSelectNavigate = (selectedProduct: Product) => {
     setSelectedProduct(selectedProduct);
     localStorage.setItem("selectedProduct", JSON.stringify(selectedProduct));
-    navigate(`/assistentedepedido/${selectedClient?.name}`);
+    navigate(`/assistentedepedido/${selectedProduct?.name}`);
   };
   
   const [productCadastrado, setProductCadastrado] = useState<Product | null>(null);

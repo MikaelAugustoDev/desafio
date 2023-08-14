@@ -6,6 +6,8 @@ import { Input } from "../../components/input";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+// Estilização em Styled-Components
+
 const Main = styled.main`
   width: 100%;
   min-height: 80vh;
@@ -18,7 +20,7 @@ const Main = styled.main`
   }
 `;
 
-const Formulario = styled.div`
+const FormView = styled.div`
   width: 700px;
   height: 400px;
   border: 2px solid #333;
@@ -45,7 +47,7 @@ const Formulario = styled.div`
   }
 `;
 
-const TitleFormulario = styled.h1`
+const TitleForm = styled.h1`
   font-size: 30px;
   color: #333;
 
@@ -75,7 +77,7 @@ const InputPayment = styled.input`
   margin-right: 5px;
 `;
 
-const InputParcelas = styled.input`
+const InputInstallments = styled.input`
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -125,7 +127,7 @@ const ArrowGoBack = styled.img`
     }
 `;
 
-const FormularioEntrega = styled.div`
+const FormViewDelivery = styled.div`
   width: 700px;
   height: 500px;
   border: 2px solid #333;
@@ -153,7 +155,7 @@ const FormularioEntrega = styled.div`
   }
 `;
 
-const FormEntrega = styled.form`
+const FormDelivery = styled.form`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -177,21 +179,24 @@ const InputsForm = styled.div`
 
 `;
 
-const CadastrarCEP = styled.div`
+const RegisterCEP = styled.div`
   width: 50%;
   height: 100%;
   display: flex;
   flex-direction: column;
 `;
 
-const CadastrarLogradouro = styled.div`
+const RegisterStreet = styled.div`
   width: 50%;
   height: 100%;
   display: flex;
   flex-direction: column;
 `;
 
-const FinalizandoCompra = () => {
+const FinalizingPurchase = () => {
+
+  // Pegando os dados de metodo de pagamento escolhido pelo cliente
+
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("");
   const [parcelas, setParcelas] = useState("");
   const [continueButtonEnabled, setContinueButtonEnabled] = useState(false);
@@ -210,17 +215,22 @@ const FinalizandoCompra = () => {
   const [showForm, setShowForm] = useState(true);
   const [previousSelectedMethod, setPreviousSelectedMethod] = useState("");
 
+  // Lógica para salvar no cache a escolha de pagamento e ir para a próxima tela
+
   const handleContinueClick = () => {
     setShowForm(false);
     setPreviousSelectedMethod(selectedPaymentMethod);
     localStorage.setItem("selectedPaymentMethod", selectedPaymentMethod);
   };
 
+  // Lógica para votlar a tela anterior
 
   const handleBackClick = () => {
     setShowForm(true);
     setSelectedPaymentMethod(previousSelectedMethod);
   };
+
+  // Salvando em variaveis os dados recebidos no input 
 
   const [rua, setRua] = useState("");
   const [bairro, setBairro] = useState("");
@@ -230,6 +240,8 @@ const FinalizandoCompra = () => {
   const [estadoEntrega, setEstadoEntrega] = useState("");
   const [cidadeEntrega, setCidadeEntrega] = useState("");
 
+  // Pegando o CEP digitado
+
   const handleCepChange = (e: { target: { value: string; }; }) => {
     const newCep = e.target.value;
     setCep(newCep);
@@ -238,6 +250,8 @@ const FinalizandoCompra = () => {
       fetchCepDetails(newCep);
     }
   };
+
+  // Fazendo a Busca do CEP digitado na API
 
   const fetchCepDetails = async (cep: string) => {
     try {
@@ -252,6 +266,8 @@ const FinalizandoCompra = () => {
       alert("Erro ao obter detalhes do CEP");
     }
   };
+
+  // Lógica para valdiar o formulário
 
   const navigate = useNavigate();
   const [formValid, setFormValid] = useState(false);
@@ -274,6 +290,8 @@ const FinalizandoCompra = () => {
   useEffect(() => {
     validateForm();
   }, [cep, rua, bairro, numero, selectedPaymentMethod, parcelas]);
+
+  // Salvando os dados digitados pelo cliente em cache
 
   const handleFinalizarClick = () => {
     if (formValid) {
@@ -310,8 +328,8 @@ const FinalizandoCompra = () => {
       <Header />
       <Main>
         {showForm ? (
-          <Formulario>
-            <TitleFormulario>Quase lá...</TitleFormulario>
+          <FormView>
+            <TitleForm>Quase lá...</TitleForm>
             <Form>
               <PaymentMethod>
                 <LabelForPayment>Forma de Pagamento:</LabelForPayment>
@@ -328,7 +346,7 @@ const FinalizandoCompra = () => {
                 {selectedPaymentMethod === "cartao" && (
                   <>
                     <LabelForPayment>Parcelas:</LabelForPayment>
-                    <InputParcelas
+                    <InputInstallments
                       placeholder="1x"
                       list="parcelas"
                       value={parcelas}
@@ -388,7 +406,7 @@ const FinalizandoCompra = () => {
             >
               Continuar
             </CustomButton>
-          </Formulario>
+          </FormView>
         ) : (
           <>
             <ArrowGoBack
@@ -396,11 +414,11 @@ const FinalizandoCompra = () => {
               alt="Voltar para pagina anterior"
               onClick={handleBackClick}
             />
-            <FormularioEntrega>
-              <TitleFormulario>Endereço para entrega</TitleFormulario>
-              <FormEntrega>
+            <FormViewDelivery>
+              <TitleForm>Endereço para entrega</TitleForm>
+              <FormDelivery>
                 <InputsForm>
-                  <CadastrarCEP>
+                  <RegisterCEP>
                     <Input
                       name="CEP"
                       type="text"
@@ -422,8 +440,8 @@ const FinalizandoCompra = () => {
                       readonly
                       placeholder="Cidade"
                     />
-                  </CadastrarCEP>
-                  <CadastrarLogradouro>
+                  </RegisterCEP>
+                  <RegisterStreet>
                     <Input
                       name="Rua"
                       type="text"
@@ -444,16 +462,16 @@ const FinalizandoCompra = () => {
                       value={numero}
                       onChange={(e: { target: { value: SetStateAction<string>; }; }) => setNumero(e.target.value)}
                     />
-                  </CadastrarLogradouro>
+                  </RegisterStreet>
                 </InputsForm>
                 <CustomButton
                   type="submit"
                   onClick={handleFinalizarClick}
                   disabled={!formValid}
                 >Finalizar</CustomButton>
-              </FormEntrega>
+              </FormDelivery>
 
-            </FormularioEntrega>
+            </FormViewDelivery>
           </>
         )}
       </Main>
@@ -461,4 +479,4 @@ const FinalizandoCompra = () => {
   );
 };
 
-export { FinalizandoCompra };
+export { FinalizingPurchase };

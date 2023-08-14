@@ -4,7 +4,7 @@ import { Home } from "./Home";
 import { CustomerRegistration } from "./CustomerRegistration";
 import { ProductRegistration } from "./ProductRegistration";
 import { OrderAssistant } from "./OrderAssistant";
-import { FinalizandoCompra } from "./FinalizandoCompra";
+import { FinalizingPurchase } from "./FinalizingPurchase";
 import { Finalizado } from "./Finalizado";
 
 const AppRouter = () => {
@@ -16,7 +16,7 @@ const AppRouter = () => {
         <Route path="/cadastrodeclientes" element={ <CustomerRegistration /> }/>
         <Route path="/cadastrodeprodutos" element={ <ProductRegistration /> }/>
         <Route path="/assistentedepedido" element={ <OrderAssistant /> }/>
-        <Route path="/assistentedepedido/:productName" element={ <FinalizandoCompra /> } />
+        <Route path="/assistentedepedido/:productName" element={ <FinalizingPurchase /> } />
         <Route path="/finalizado" element={ <Finalizado /> } />
       </Routes>
     </BrowserRouter>
